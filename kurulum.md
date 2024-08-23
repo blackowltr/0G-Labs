@@ -111,7 +111,8 @@ Initialize the node with your chain ID and moniker:
 Download the genesis file for the testnet:
 
 ```shell
-rm ~/.0gchain/config/genesis.json && wget -P ~/.0gchain/config https://github.com/0glabs/0g-chain/releases/download/v0.2.3/genesis.json
+rm -f $HOME/.0gchain/config/genesis.json && curl -L https://snapshots-testnet.nodejumper.io/0g-testnet/genesis.json -o $HOME/.0gchain/config/genesis.json
+curl -L https://snapshots-testnet.nodejumper.io/0g-testnet/addrbook.json > $HOME/.0gchain/config/addrbook.json
 ```
 
 ### 6.3. Set Seeds and Peers
@@ -120,7 +121,9 @@ Configure the node to connect to the network:
 
 ```shell
 SEEDS="81987895a11f6689ada254c6b57932ab7ed909b6@54.241.167.190:26656,010fb4de28667725a4fef26cdc7f9452cc34b16d@54.176.175.48:26656,e9b4bc203197b62cc7e6a80a64742e752f4210d5@54.193.250.204:26656,68b9145889e7576b652ca68d985826abd46ad660@18.166.164.232:26656"
-sed -i -e "s/^seeds *=.*/seeds = \"$SEEDS\"/" $HOME/.0gchain/config/config.toml
+PEERS="b2cc2277199fe563701d601191f7a9bdb2b012a4@149.50.119.154:12656,625e4d70d537e67e10ef7ad9b1383d99ce91d4d9@159.69.61.114:47656,0a63668e51287b4bf10085a2c2f8c051da80ec67@149.50.125.67:12656,2de1b95c9c905ed5ae323248df4da45ed9e3d779@149.50.107.182:12656,cc28265c1789db651ae4963a730d18827d500ed3@149.50.124.199:12656,dae234c0a999f271da30b0b13eb4c51d1536d281@149.50.114.187:12656,ba38d90d6a9f0b901ca54f9d44ccbe7e3ec59325@149.50.109.145:12656,2050f8e1395a9d3baee7aa9f2bd5fa9d6c123e81@149.50.125.24:12656,c9f121f4ad54b7299e622335d54932ca0c481700@185.215.164.12:26656,b834a5df869e37243832b0edc3008ee6ed5bc710@149.50.119.174:12656,9dcb40c51fae47292418a9fe085fcc94d4e9dc15@148.113.9.176:36656,80cdd1a027020305972265dd6eb0e757950cfd2e@94.130.132.219:26656,31dd96cf2cc0bca78e52985f3871566020f5260c@136.243.66.243:26656,9c1d43f9998b849b8376d403f2f77217753debc6@217.15.167.74:26656,890a8fdf7ae003e381d4123c5fa70d6aa1125391@176.9.104.216:26656,9bc3ffcec4554f291fe4630f356e477ddd6fea97@149.50.111.45:12656,b25020773d3ccc0c7d7c3ead4bfb1758bd678210@185.218.125.42:26656,a43efb5f3311d24bf2ddb1dccea0b8e6c57516b3@149.50.119.207:12656,15f982a56340186a795b2aef981e6197530f6145@38.242.131.32:26656,5037b5d7b52c28e5c12703d638a3afba2f85c1d4@149.50.119.24:12656"
+sed -i -e "s|^seeds *=.*|seeds = \"$SEEDS\"|" $HOME/.0gchain/config/config.toml
+sed -i -e "s|^persistent_peers *=.*|persistent_peers = \"$PEERS\"|" $HOME/.0gchain/config/config.toml
 ```
 
 ## 7. Set Custom Ports and Enable Prometheus
